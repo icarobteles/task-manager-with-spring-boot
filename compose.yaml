@@ -1,0 +1,11 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    container_name: taskmanager-db
+    restart: always
+    environment:
+      POSTGRES_DB: taskmanager
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 2ZiPzxIQUZQxvvxoAgHdhreG2uCUb6s6gq
+    ports:
+      - "5432:5432"
