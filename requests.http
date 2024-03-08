@@ -1,9 +1,12 @@
 # Listar todas as tarefas
-GET http://localhost:8080/tasks
+GET http://localhost:8080/tasks HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lZG9lQGdtYWlsLmNvbSIsImV4cCI6MTcwOTgzODE3N30.Yad7E1o9Mbm5CvYXfHRNpfFphgeCHJmOQ5GC_Q8gsXc
+
 ###
 
 # Listar uma tarefa específica
-GET http://localhost:8080/tasks/be77f0b6-f862-447e-bbd1-c9645cd94249
+GET http://localhost:8080/tasks/72afef94-fb19-4f76-b798-30f64aa3456a HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lZG9lQGdtYWlsLmNvbSIsImV4cCI6MTcwOTgzODE3N30.Yad7E1o9Mbm5CvYXfHRNpfFphgeCHJmOQ5GC_Q8gsXc
 ###
 
 # Criar uma nova tarefa
@@ -17,7 +20,8 @@ Content-Type: application/json
 ###
 
 # Atualizar uma tarefa
-PATCH http://localhost:8080/tasks/be77f0b6-f862-447e-bbd1-c9645cd94249 HTTP/1.1
+PATCH http://localhost:8080/tasks/94a3edfb-3a5c-4fef-8fd8-bab5775c3b50 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW5lZG9lQGdtYWlsLmNvbSIsImV4cCI6MTcwOTgzODE3N30.Yad7E1o9Mbm5CvYXfHRNpfFphgeCHJmOQ5GC_Q8gsXc
 Content-Type: application/json
 
 {
@@ -26,17 +30,41 @@ Content-Type: application/json
 ###
 
 # Completar uma tarefa
-PATCH http://localhost:8080/tasks/be77f0b6-f862-447e-bbd1-c9645cd94249/complete HTTP/1.1
+PATCH http://localhost:8080/tasks/94a3edfb-3a5c-4fef-8fd8-bab5775c3b50/complete HTTP/1.1
 ###
 
 # Iniciar uma tarefa
-PATCH http://localhost:8080/tasks/be77f0b6-f862-447e-bbd1-c9645cd94249/start HTTP/1.1
+PATCH http://localhost:8080/tasks/94a3edfb-3a5c-4fef-8fd8-bab5775c3b50/start HTTP/1.1
 ###
 
 # Resetar o estado de uma tarefa (torna-la pendente)
-PATCH http://localhost:8080/tasks/be77f0b6-f862-447e-bbd1-c9645cd94249/reset HTTP/1.1
+PATCH http://localhost:8080/tasks/94a3edfb-3a5c-4fef-8fd8-bab5775c3b50/reset HTTP/1.1
 ###
 
 # Deletar uma tarefa
-DELETE http://localhost:8080/tasks/be77f0b6-f862-447e-bbd1-c9645cd94249
+DELETE http://localhost:8080/tasks/94a3edfb-3a5c-4fef-8fd8-bab5775c3b50
 
+
+
+# AUTENTICAÇÃO
+
+# Registrar um novo usuário
+POST http://localhost:8080/auth/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "User 1",
+  "email": "user1",
+  "password": "password1"
+}
+###
+
+# Logar com um usuário
+POST http://localhost:8080/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "janedoe@gmail.com",
+  "password": "janeDOE123$"
+}
+###

@@ -4,11 +4,14 @@ import com.example.taskmanager.core.BaseEntity;
 import com.example.taskmanager.enums.TaskStatus;
 import com.example.taskmanager.enums.TaskStatusOperationFeedback;
 import com.example.taskmanager.exceptions.tasks.IllegalTaskStatusUpdateException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -20,7 +23,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -28,12 +30,14 @@ import lombok.Setter;
 @Table(name = "tasks")
 public class Task extends BaseEntity {
 
+  @Setter
   @NotBlank(message = "O título da tarefa é obrigatório")
   @Size(min = 3, message = "O título da tarefa deve ter no mínimo 3 caracteres")
   @Size(max = 75, message = "O título da tarefa deve ter no máximo 75 caracteres")
   @Column(name = "title", nullable = false, unique = true, length = 75)
   private String title;
 
+  @Setter
   @NotBlank(message = "A descrição da tarefa é obrigatória")
   @Size(min = 3, message = "A descrição da tarefa deve ter no mínimo 3 caracteres")
   @Column(name = "description", nullable = false)
@@ -44,9 +48,16 @@ public class Task extends BaseEntity {
   @Column(name = "status", nullable = false)
   private TaskStatus status;
 
-  public Task(String title, String description) {
+  @JsonIgnore
+  @NotNull(message = "O autor da tarefa é obrigatório")
+  @ManyToOne
+  @JoinColumn(name = "author_id", nullable = false)
+  private User author;
+
+  public Task(String title, String description, User author) {
     this.title = title;
     this.description = description;
+    this.author = author;
     this.status = TaskStatus.PENDING;
   }
 

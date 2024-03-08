@@ -40,7 +40,6 @@ public class TasksController {
   public ResponseEntity<Task> show(@PathVariable UUID id) {
     Task task = this.tasksService.show(id);
     return ResponseEntity.ok(task);
-  
   }
 
   @PostMapping()
